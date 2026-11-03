@@ -83,3 +83,33 @@ document.querySelectorAll('.service-card, .portfolio-item').forEach(item => {
     item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(item);
 });
+
+// Add mouse move parallax effect to hero
+document.addEventListener('mousemove', (e) => {
+    const circles = document.querySelectorAll('.floating-circle');
+    const x = e.clientX / window.innerWidth;
+    const y = e.clientY / window.innerHeight;
+
+    circles.forEach((circle, index) => {
+        const speed = (index + 1) * 20;
+        const xOffset = (x - 0.5) * speed;
+        const yOffset = (y - 0.5) * speed;
+        circle.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+    });
+});
+
+// Add typing effect to hero title (optional enhancement)
+const heroTitle = document.querySelector('.hero-title');
+if (heroTitle) {
+    const originalText = heroTitle.textContent;
+    heroTitle.textContent = '';
+    let i = 0;
+    const typeWriter = () => {
+        if (i < originalText.length) {
+            heroTitle.textContent += originalText.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50);
+        }
+    };
+    setTimeout(typeWriter, 500);
+}
